@@ -5,3 +5,7 @@ __pycache__/
 *.iml
 .vscode/
 .env
+
+# Projects moved to separate repos
+apps/
+.github/
