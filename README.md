@@ -1,61 +1,42 @@
-  # My-Devops-Practice
+# DevOps Practice
 
-Монорепозиторий с моими учебными DevOps-проектами: приложения, упакованные в
-контейнеры через Podman/Docker Compose, инфраструктурные заготовки и скрипты
-для администрирования.
+DevOps learning repository: infrastructure configs, automation scripts, and tooling examples.
 
-Каждый каталог — самостоятельный проект. Структура:
+Applications have been moved to separate repositories for cleaner CI/CD and independent deployment.
+
+## Structure
 
 ```
 My-Devops-Practice/
-├── apps/        учебные приложения (контейнеризация через podman-compose)
-├── infra/       инфраструктура: Docker, Compose, Ansible (пополняется)
-└── tools/       вспомогательные bash-скрипты
+├── infra/       infrastructure configs (Docker, Compose, Ansible)
+└── tools/       bash scripts for administration
 ```
 
-## Приложения (apps/)
+## Related Projects
 
-| Проект              | Стек                                             | Что это                          |
-|---------------------|--------------------------------------------------|----------------------------------|
-| `chat-messenger`    | Node.js, Express, Socket.IO, Postgres, Redis     | чат в реальном времени           |
-| `file-gallery`      | Node.js, Express, Postgres, MinIO (S3)           | галерея загрузки изображений     |
-| `Simple_Site`       | FastAPI (Python), Postgres, nginx, pgAdmin       | интернет-магазин электроники     |
-| `fastapi-app`       | FastAPI, uvicorn                                 | минимальный API-пример           |
-| `api-parser`        | Python (requests + csv)                          | парсер API и выгрузка в CSV      |
+Each application lives in its own repository:
 
-## Инфраструктура (infra/)
+| Repository | Stack | Description |
+|-----------|-------|-------------|
+| [wordbook](https://github.com/khalikov-ibragim/wordbook) | Node.js, PostgreSQL, LibreTranslate, Cloudflare | PWA dictionary (EN↔RU) with offline support |
+| [site_the_sales](https://github.com/khalikov-ibragim/site_the_sales) | FastAPI, PostgreSQL, Nginx | E-commerce store |
+| [chat-messenger](https://github.com/khalikov-ibragim/chat-messenger) | Socket.IO, Redis, PostgreSQL | Real-time chat |
+| [file-gallery](https://github.com/khalikov-ibragim/file-gallery) | MinIO S3, PostgreSQL | File storage gallery |
+| [api-parser](https://github.com/khalikov-ibragim/api-parser) | Python, requests | API to CSV parser |
 
-- `docker/` — готовые Dockerfile-примеры (пополняется)
-- `docker-compose/` — примеры compose-файлов (пополняется)
-- `ansible/` — плейбуки (пополняется)
+## Infrastructure (infra/)
 
-## Скрипты (tools/)
+- `docker/` — Dockerfile examples
+- `docker-compose/` — Compose file examples
+- `ansible/` — playbooks (growing)
 
-- `backup.sh` — простой скрипт резервного копирования
-- `Nginx_Logs.sh` — проверка/анализ логов nginx
+## Scripts (tools/)
 
-## Как запускать
+- `backup.sh` — simple backup script with rotation
+- `Nginx_Logs.sh` — nginx log analysis
 
-Каждое приложение поднимается через `podman-compose` (или `docker-compose`) из
-своей папки, например:
+## Roadmap
 
-```bash
-cd apps/chat-messenger
-podman-compose up -d
-```
-
-> Перед запуском скопируй `.env.example` → `.env` и заполни значения, если такой
-> файл присутствует в проекте.
-
-## Почему Podman
-
-Поднимаю учебные стенды через rootless Podman + `podman-compose` — это удобно на
-RedOS/RedHat-подобных системах без демона Docker. Большинство проектов совместимо
-с `docker-compose` практически без изменений (см. заметки в README каждого приложения).
-
-## Дорожная карта
-
-- [ ] CI/CD (GitHub Actions): сборка образов по пушу, деплой
-- [ ] Наполнить `infra/ansible` первыми плейбуками
-- [ ] Мониторинг (Prometheus + Grafana)
-- [ ] Добавить `.env.example` во все приложения с секретами
+- [ ] CI/CD (GitHub Actions): image build on push, deployment
+- [ ] Fill `infra/ansible` with first playbooks
+- [ ] Monitoring (Prometheus + Grafana)
