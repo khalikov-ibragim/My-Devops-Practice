@@ -3,3 +3,4 @@
   become: yes #Установка требует root данной командой мы добавляем права root для установки
   roles:
     - wordbook
+    - chat-messenger
