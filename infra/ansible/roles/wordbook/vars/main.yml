@@ -1,0 +1,4 @@
+  deploy_source: local
+  local_src: "{{ playbook_dir }}/../../../wordbook/docker-compose.prod.yaml"
+  local_secrets: "{{ playbook_dir }}/../../../wordbook/.env.example"
+  path_project: /opt/wordbook/

@@ -1,0 +1,34 @@
+    - name: Установить пакет
+      dnf:  #Что за пакетный менеджер. Данная команда является модулем = Готовой командой Ansible
+        name:
+        - nginx # Описание задачи текстом
+        - curl
+        - docker
+        - docker-compose
+        - podman
+        - podman-compose
+        - git
+        - htop
+        - python3
+        state: present #операция "Установка"
+    - name: Положить файл compose
+      copy:
+        src: "{{ local_src }}"
+        dest: "{{ path_project }}/docker-compose.prod.yaml"
+    - name: выкладываем файл секрета
+      copy:
+        src: "{{ local_secrets }}"
+        dest: "{{ path_project }}/.env"
+    - name: Pull images
+      shell:
+        chdir: "{{path_project}}"
+        cmd: podman-compose -f docker-compose.prod.yaml pull
+    - name: Build images
+      shell:
+        chdir: "{{path_project}}"
+        cmd: podman-compose -f docker-compose.prod.yaml up -d
+    - name: Проверка работы
+      uri:
+        url: http://127.0.0.1:80
+        return_content: yes
+        status_code: 200

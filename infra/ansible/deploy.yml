@@ -1,0 +1,5 @@
+- name: Установка nginx
+  hosts: mygroup # Какую группу трогаем
+  become: yes #Установка требует root данной командой мы добавляем права root для установки
+  roles:
+    - wordbook
