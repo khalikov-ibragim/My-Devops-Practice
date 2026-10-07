@@ -23,10 +23,12 @@
       shell:
         chdir: "{{path_project}}"
         cmd: podman-compose -f docker-compose.prod.yaml pull
+      changed_when: false
     - name: Build images
       shell:
         chdir: "{{path_project}}"
         cmd: podman-compose -f docker-compose.prod.yaml up -d
+      changed_when: false
     - name: Проверка работы
       uri:
         url: http://127.0.0.1:80
