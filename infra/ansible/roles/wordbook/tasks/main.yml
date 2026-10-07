@@ -11,6 +11,13 @@
         - htop
         - python3
         state: present #операция "Установка"
+    - name: Создание папки проекта
+      file:
+        path: "{{ path_project }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
     - name: Положить файл compose
       copy:
         src: "{{ local_src }}"

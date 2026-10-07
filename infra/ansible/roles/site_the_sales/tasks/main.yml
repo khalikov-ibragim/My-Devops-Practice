@@ -18,26 +18,26 @@
         owner: root
         group: root
         mode: '0755'
-    - name: Копируем прод файл
+    - name: Копируем наш прод файл
       copy:
-          src: "{{ local_file_project }}"
-          dest: "{{ path_project }}/docker-compose.prod.yml"
-    - name: Копируем наши секреты
+        src: "{{ local_project_file }}"
+        dest: "{{ path_project }}/docker-compose.prod.yml"
+    - name: Копируем наш секрет файл
       copy:
-        src: "{{ local_secrets }}"
-        dest: "{{ path_project }}.env"
-    - name: Pull наши образы
+        src: "{{ local_secrets_file }}"
+        dest: "{{ path_project }}/.env"
+    - name:  pull наш докер
       shell:
         chdir: "{{ path_project }}"
         cmd: podman-compose -f docker-compose.prod.yml pull
-      changed_when: false #Убераем счетчик изменений в данной команде
-    - name: Поднятие наших образов
+      changed_when: false
+    - name: запуск образов
       shell:
         chdir: "{{ path_project }}"
         cmd: podman-compose -f docker-compose.prod.yml up -d
-      changed_when: false #Убераем счетчик изменений в данной команде
-    - name: Check work
+      changed_when: false
+    - name: Проверка работы
       uri:
-        url: http://127.0.0.1:7890
+        url: http://127.0.0.1:1234
         return_content: yes
         status_code: 200
