@@ -18,21 +18,10 @@
         owner: root
         group: root
         mode: '0755'
-    - name: Создание папки проекта
-      file:
-        path: "{{ path_project }}/backend"
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
     - name: Копируем наш прод файл
       copy:
         src: "{{ local_project_file }}"
         dest: "{{ path_project }}/docker-compose.prod.yml"
-    - name: Копируем нашу монтированную схему бд
-      copy:
-        src: "{{ local_project_file }}"
-        dest: "{{ path_project }}/backend/init_db.sql"
     - name: Копируем наш  файл с секретами
       copy:
         src: "{{ local_secrets_file }}"
