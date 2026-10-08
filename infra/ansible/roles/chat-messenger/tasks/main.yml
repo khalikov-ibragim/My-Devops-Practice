@@ -37,6 +37,8 @@
       shell:
         chdir: "{{ path_project }}"
         cmd: podman-compose -f docker-compose.prod.yml up -d
+      environment:
+        TAG: "{{ tag }}"
       changed_when: false #Убераем счетчик изменений в данной команде
     - name: Check work
       uri:
