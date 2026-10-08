@@ -1,4 +1,4 @@
-deploy_sourse: local
+deploy_source: local
 local_project_file: "{{ playbook_dir }}/../../../site_the_sales/docker-compose.prod.yml"
 local_secrets_file: "{{ playbook_dir }}/../../../site_the_sales/.env.example"
 path_project: /opt/site_the_sales/
