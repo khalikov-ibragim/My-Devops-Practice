@@ -30,6 +30,8 @@
       shell:
         chdir: "{{ path_project }}"
         cmd: podman-compose -f docker-compose.prod.yml pull
+      environment:
+        TAG: "{{ tag }}"
       changed_when: false
     - name: Запуск проекта
       shell:
