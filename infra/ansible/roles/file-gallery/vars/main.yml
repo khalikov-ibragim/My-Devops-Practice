@@ -2,3 +2,4 @@ deploy_sourse: local
 local_project_file: "{{ playbook_dir }}/../../../file-gallery/docker-compose.prod.yml"
 local_secrets_file: "{{ playbook_dir }}/../../../file-gallery/.env.example"
 path_project: /opt/file-gallery/
+tag: 6e7ba0f

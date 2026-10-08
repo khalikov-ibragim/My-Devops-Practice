@@ -2,3 +2,4 @@
   local_file_project: "{{ playbook_dir }}/../../../chat-messenger/docker-compose.prod.yml"
   local_secrets: "{{ playbook_dir }}/../../../chat-messenger/.env.example"
   path_project: /opt/chat-messenger/
+  tag: 4454d8d
