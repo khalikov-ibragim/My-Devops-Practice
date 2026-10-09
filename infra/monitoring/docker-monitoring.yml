@@ -1,0 +1,19 @@
+services:
+  node-exporter:
+    image: docker.io/prom/node-exporter:latest
+    ports:
+      - 9100:9100
+    restart: always
+    command: --path.rootfs=/rootfs
+    security_opt:
+      - label=disable
+    volumes:
+      - type: bind
+        source: /proc #что монтируем - существующий путь на хосте
+        target: /proc #путь внутри контейнера
+      - type: bind
+        source: /sys #что монтируем - существующий путь на хосте
+        target: /sys #путь внутри контейнера
+      - type: bind
+        source: / #что монтируем - существующий путь на хосте
+        target: /rootfs #путь внутри контейнера
