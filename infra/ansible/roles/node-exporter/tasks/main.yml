@@ -1,0 +1,21 @@
+    - name: Создание папки под мониторинг
+      file:
+        path: /opt/node-exporter
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: Копируем файл docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /opt/node-exporter/docker-compose.yml
+        mode: '0644'
+    - name: Запуск node-exporter
+      shell:
+        chdir: /opt/node-exporter
+        cmd: podman-compose -f docker-compose.yml up -d
+    - name: Быстрая проверка запуска
+      uri:
+        url: http://127.0.0.1:9100
+        status_code: 200
+        return_content: yes

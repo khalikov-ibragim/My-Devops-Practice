@@ -1,0 +1,33 @@
+services:
+  grafana:
+    image: docker.io/grafana/grafana:latest
+    ports:
+      - 3000:3000
+    restart: always
+
+  prometheus:
+    image: docker.io/prom/prometheus:latest
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro,z
+  node-exporter:
+    image: docker.io/prom/node-exporter:latest
+    ports:
+      - 9100:9100
+    restart: always
+    command: --path.rootfs=/rootfs
+    security_opt:
+      - label=disable
+    volumes:
+      - type: bind
+        source: /proc #что монтируем - существующий путь на хосте
+        target: /proc #путь внутри контейнера
+      - type: bind
+        source: /sys #что монтируем - существующий путь на хосте
+        target: /sys #путь внутри контейнера
+      - type: bind
+        source: / #что монтируем - существующий путь на хосте
+        target: /rootfs #путь внутри контейнера
+

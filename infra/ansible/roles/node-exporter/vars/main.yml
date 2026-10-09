@@ -1,0 +1,3 @@
+monitoring_source: local
+node_export_file: "{{ playbook_dir }}/../../../My-Devops-Practice/infra/monitoring/docker-compose.yml"
+local_project_file: /opt/monitoring/
