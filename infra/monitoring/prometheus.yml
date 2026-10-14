@@ -7,13 +7,11 @@ scrape_configs:
       - targets:
         - node-exporter:9100
         - prometheus:9090
-  - job_name: node-exporter vm1
+  - job_name: node-exporter notebook
     static_configs:
       - targets:
-        - prometheus:9090
         - 10.81.6.252:9100
-  - job_name: node-exporter vm2
+  - job_name: node-exporter myvm
     static_configs:
       - targets:
-        - prometheus:9090
         - 10.81.6.179:9100
