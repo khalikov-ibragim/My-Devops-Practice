@@ -7,7 +7,7 @@ groups:
         labels:    #Метки - по ним AlertManager группирует и маршрутизирует
           severity: critical # Критическая, лучше не ждать
         annotations:  # Текст сообщения {{ $labels.instance }} подставит имя
-          summary: "Сервис недоступен :{{ $labels.instance }}"
+          summary: "Хост {{ $labels.instance }} - ПОМЕР"
 
   - name: resources
     rules:
@@ -17,7 +17,7 @@ groups:
         labels:
           severity: warning          # подождать можно
         annotations:
-          summary: "Высокая нагрузка CPU: Выше 85%! {{ $labels.instance }}"
+          summary: "Высокая нагрузка CPU: Выше 85%!"
 
       - alert: LowMemory
         expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.10
@@ -25,7 +25,7 @@ groups:
         labels:
           severity: critical # Критическая, лучше не ждать
         annotations:
-          summary: "МАЛО Оперативной памяти! Занято 90%: {{ $labels.instance }}"
+          summary: "МАЛО Оперативной памяти! Занято > 90%:"
 
       - alert: Disk
         expr: (1 - node_filesystem_free_bytes{mountpoint="/"} /
@@ -34,7 +34,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          description: "Раздел / Диск занят более чем на 85%. Хост: {{ $labels.instance }}" #Подробности ошибки
+          description: "Раздел / Диск занят более чем на 85%. " #Подробности ошибки
 
       - alert: Temperature
         expr: node_hwmon_temp_celsius > 80
@@ -42,5 +42,5 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Температура выше 80!: {{ $labels.instance }}"
+          summary: "Общая температура выше 80!"
 

@@ -20,3 +20,4 @@
         url: http://127.0.0.1:9100
         status_code: 200
         return_content: yes
+        validate_certs: no

@@ -45,3 +45,4 @@
         url: http://127.0.0.1:1234
         return_content: yes
         status_code: 200
+        validate_certs: no

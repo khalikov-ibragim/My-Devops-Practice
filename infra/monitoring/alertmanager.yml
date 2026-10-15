@@ -4,7 +4,7 @@ global:
 route:
   receiver: telegram #Куда слать по умолчанию
   group_wait: 30s #ждать 30с перед отправкой
-  repeat_interval: 20m # Если проблема не решена - напоминать через 4 часа
+  repeat_interval: 1h # Если проблема не решена - напоминать через 4 часа
 
 receivers:
   - name: telegram
