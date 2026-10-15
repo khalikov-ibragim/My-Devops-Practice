@@ -1,0 +1,14 @@
+global:
+  resolve_timeout: 10m # ← время на «подтверждение, что всё хорошо»
+
+route:
+  receiver: telegram #Куда слать по умолчанию
+  group_wait: 30s #ждать 30с перед отправкой
+  repeat_interval: 20m # Если проблема не решена - напоминать через 4 часа
+
+receivers:
+  - name: telegram
+    telegram_configs:
+      - bot_token: '__BOT_TOKEN__'
+        chat_id: __CHAT_ID__
+        send_resolved: true #пришлет "проблема решена"

@@ -1,0 +1,46 @@
+groups:
+  - name: availability
+    rules:
+      - alert: InstanceDown # Имя правила как будет называться
+        expr: up == 0  #Условия если up = 0  где target не отвечает
+        for: 1m     # Ждать 1 минуту перед алертом
+        labels:    #Метки - по ним AlertManager группирует и маршрутизирует
+          severity: critical # Критическая, лучше не ждать
+        annotations:  # Текст сообщения {{ $labels.instance }} подставит имя
+          summary: "Сервис недоступен :{{ $labels.instance }}"
+
+  - name: resources
+    rules:
+      - alert: HighCPU
+        expr: 100 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100 > 85
+        for: 10m   # Ждать 10 минут перед алертом
+        labels:
+          severity: warning          # подождать можно
+        annotations:
+          summary: "Высокая нагрузка CPU: Выше 85%! {{ $labels.instance }}"
+
+      - alert: LowMemory
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.10
+        for: 5m  # Ждать 5 минут перед алертом
+        labels:
+          severity: critical # Критическая, лучше не ждать
+        annotations:
+          summary: "МАЛО Оперативной памяти! Занято 90%: {{ $labels.instance }}"
+
+      - alert: Disk
+        expr: (1 - node_filesystem_free_bytes{mountpoint="/"} /
+                  node_filesystem_size_bytes{mountpoint="/"}) * 100 > 85
+        for: 35m   # Ждать 35 минут перед алертом
+        labels:
+          severity: warning
+        annotations:
+          description: "Раздел / Диск занят более чем на 85%. Хост: {{ $labels.instance }}" #Подробности ошибки
+
+      - alert: Temperature
+        expr: node_hwmon_temp_celsius > 80
+        for: 10m # Ждать 10 минут перед алертом
+        labels:
+          severity: warning
+        annotations:
+          summary: "Температура выше 80!: {{ $labels.instance }}"
+
