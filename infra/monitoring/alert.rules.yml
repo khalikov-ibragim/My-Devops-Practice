@@ -20,7 +20,7 @@ groups:
           summary: "Высокая нагрузка CPU: Выше 85%!"
 
       - alert: LowMemory
-        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.10
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.85
         for: 5m  # Ждать 5 минут перед алертом
         labels:
           severity: critical # Критическая, лучше не ждать
